@@ -30,7 +30,7 @@ public class GameScreen extends Activity {
     private int userScore;
     TextView timerText;
     TextView scoreText;
-    int timerValue = 30000;
+    int timerValue = 5000;
     final Context context = this;
     CountDownTimer clockTimer;
     boolean isRunning = false;
@@ -83,7 +83,6 @@ public class GameScreen extends Activity {
                     moveButton();
                 }
             }
-
             public void onFinish() {
             }
         }.start();
@@ -98,10 +97,9 @@ public class GameScreen extends Activity {
                 timerValue = (Integer.parseInt(timerTextVal)) * 1000;
                 //  }
             }
-
             public void onFinish() {
                 timerText.setText("" + 0);
-                updateHS(userScore);
+                endGame();
             }
         }.start();
     }
@@ -146,9 +144,7 @@ public class GameScreen extends Activity {
             editor.putInt("highscore", x);
             editor.commit();
             Toast.makeText(getApplicationContext(), "New High Score!", Toast.LENGTH_LONG).show();
-            endGame();
         } else {
-            endGame();
         }
     }
 
@@ -160,10 +156,10 @@ public class GameScreen extends Activity {
         scoreText = (TextView) findViewById(R.id.player1score);
         userScore++;
         scoreText.setText(String.valueOf(userScore));
+
     }
 
     public void destroyBad(){
-
         ImageButton altbutton = (ImageButton) findViewById(R.id.badIcon);
         altbutton.setVisibility(View.GONE);
         altbutton.setClickable(false);
@@ -269,6 +265,7 @@ public class GameScreen extends Activity {
     }
     //Allows user to restart the game or go to main menu
     public void endGame(){
+        Toast.makeText(getApplicationContext(), "New High Score!", Toast.LENGTH_LONG).show();
         clockTimer.cancel();
         timerValue = 0;
         updateHS(userScore);
