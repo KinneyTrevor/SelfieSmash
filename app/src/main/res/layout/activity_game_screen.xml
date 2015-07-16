@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}"
+
+    android:id="@+id/gamescreen"
+    android:padding="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingRight="5dp"
+    android:background="#00F000">
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gameButton"
+        android:background="@drawable/circlebutton2"
+        android:src="@drawable/circlebutton2"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:padding="5dp"
+        android:onClick="btnClick"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/player1score"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="58dp"
+        android:layout_marginStart="58dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/timerText"
+        android:textSize="30dp"
+        android:textColor="#FFFFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/player1score"
+        android:textSize="60dp"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Time:"
+        android:id="@+id/textView2"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="II"
+        android:id="@+id/pauseButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/timerText"
+        android:textSize="30sp"
+        android:nestedScrollingEnabled="true"
+        android:onClick="pauseClick" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/badIcon"
+        android:src="@mipmap/badicon"
+        android:onClick="badClick"
+        android:padding="10dp"
+        android:background="@null"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/goodIcon"
+        android:src="@mipmap/icon2"
+        android:background="@null"
+        android:padding="10dp"
+        android:onClick="btnClick"
+        android:layout_above="@+id/adView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coinButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/pauseButton"
+        android:layout_toStartOf="@+id/pauseButton"
+        android:layout_marginBottom="90dp"
+        android:background="@drawable/coin"
+        android:onClick="coinClick" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/gameLayout"
+        android:background="@null"
+        android:layout_below="@+id/player1score"
+        android:layout_alignLeft="@+id/gameButton"
+        android:layout_alignStart="@+id/gameButton"
+        android:layout_alignRight="@+id/coinButton"
+        android:layout_alignEnd="@+id/coinButton"
+        android:layout_alignBottom="@+id/coinButton" />
+
+</RelativeLayout>

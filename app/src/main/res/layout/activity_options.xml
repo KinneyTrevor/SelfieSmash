@@ -1,0 +1,74 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#00BCD4"
+    android:clickable="false"
+    android:focusableInTouchMode="true"
+    android:id="@+id/mainmenubg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Face Smash"
+        android:id="@+id/titleView"
+        android:textColor="#FFFFFF"
+        android:textSize="60dp"
+        android:textIsSelectable="false"
+        android:layout_marginTop="19dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/speaker"
+            android:src="@drawable/speakericon"
+            android:background="@null"
+            android:onClick="toggleSound" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vibrateButton"
+            android:src="@drawable/vibrate"
+            android:background="@null"
+            android:nestedScrollingEnabled="false"
+            android:onClick="toggleVibrate" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/musicButton"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/musicicon"
+            android:background="@null"
+            android:onClick="toggleMusic" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Main Menu"
+        android:id="@+id/mainmenubutton"
+        android:layout_gravity="center_horizontal"
+        android:onClick="backClick" />
+
+    <!-- android:onClick="launchCamera" --><![CDATA[
+    android:layout_above="@+id/galleryButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="40dp" />
+
+
+
+
+
+    ]]>
+</LinearLayout>

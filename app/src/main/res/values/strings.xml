@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Selfie Smash</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_camera_activityt">CameraActivit</string>
+
+    <string name="title_activity_camera_activity2">CameraActivity2</string>
+
+    <string name="title_activity_game_screen">GameScreen</string>
+
+    <string name="title_activity_options">Options</string>
+</resources>
