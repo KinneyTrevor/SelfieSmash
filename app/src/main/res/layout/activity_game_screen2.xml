@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/goodIcon"
-        android:src="@mipmap/icon2"
+        android:src="@mipmap/playericon"
         android:background="@null"
         android:padding="10dp"
         android:onClick="btnClick"
@@ -112,16 +112,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/coinButton"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/pauseButton"
-        android:layout_toStartOf="@+id/pauseButton"
-        android:layout_marginBottom="90dp"
-        android:background="@drawable/coin"
-        android:onClick="coinClick" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -131,8 +121,6 @@
         android:layout_below="@+id/player1score"
         android:layout_alignLeft="@+id/gameButton"
         android:layout_alignStart="@+id/gameButton"
-        android:layout_alignRight="@+id/coinButton"
-        android:layout_alignEnd="@+id/coinButton"
-        android:layout_alignBottom="@+id/coinButton" />
+ />
 
 </RelativeLayout>

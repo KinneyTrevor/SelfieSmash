@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,7 +18,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class GameScreen extends Activity {
     Boolean vibrateEnabled;
     Boolean soundEnabled;
     Boolean ispaused;
+    Bitmap photo;
     MediaPlayer mySound, bombSound, splatSound,lostlife;
     SharedPreferences mypreferences;
     @Override
@@ -56,7 +58,7 @@ public class GameScreen extends Activity {
         Typeface typeFace= Typeface.createFromAsset(getAssets(), "fonts/scoreFont.otf");
         scoreText.setTypeface(typeFace);
         ImageButton charButton = (ImageButton) findViewById(R.id.goodIcon);
-        x = getResources().getDrawable(R.drawable.playerIcon);
+        x = getResources().getDrawable(R.drawable.playericon);
         charButton.setImageDrawable(x);
         SharedPreferences mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
         soundEnabled = mypreferences.getBoolean("sound", true);
@@ -65,11 +67,9 @@ public class GameScreen extends Activity {
 
         //If this got started from activity_camera.java grab the photo that was passed with it
         if (getIntent().hasExtra("image")) {
-
-            Bundle extras = getIntent().getExtras();
-            if (extras != null) {
-                value = extras.getString("image");
-            }
+            timerText = (TextView) findViewById(R.id.timerText);
+            photo = BitmapFactory.decodeByteArray(
+                    getIntent().getByteArrayExtra("byteArray"), 0, getIntent().getByteArrayExtra("byteArray").length);
         }
 
         createCountDown(timerValue);
@@ -115,7 +115,7 @@ public class GameScreen extends Activity {
             }
         }.start();
     }//1
-    public void badCreate(){
+    public void badCreate() {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
