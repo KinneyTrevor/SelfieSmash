@@ -32,7 +32,6 @@ public class GameScreen extends Activity {
     int timerValue = 30000;
     final Context context = this;
     CountDownTimer clockTimer;
-    CountDownTimer coinTimer;
     boolean isRunning = false;
     Drawable x;
     String value;
@@ -40,7 +39,7 @@ public class GameScreen extends Activity {
     Boolean vibrateEnabled;
     Boolean soundEnabled;
     Boolean ispaused;
-    MediaPlayer mySound, coinSound, bombSound, splatSound,lostlife;
+    MediaPlayer mySound, bombSound, splatSound,lostlife;
     SharedPreferences mypreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,23 +56,13 @@ public class GameScreen extends Activity {
         Typeface typeFace= Typeface.createFromAsset(getAssets(), "fonts/scoreFont.otf");
         scoreText.setTypeface(typeFace);
         ImageButton charButton = (ImageButton) findViewById(R.id.goodIcon);
-        x = getResources().getDrawable(R.drawable.playerIcon,null);
+        x = getResources().getDrawable(R.drawable.playerIcon);
         charButton.setImageDrawable(x);
         SharedPreferences mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
         soundEnabled = mypreferences.getBoolean("sound", true);
         vibrateEnabled = mypreferences.getBoolean("vibrateenabled", true);
         vibrate = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        CountDownTimer createCoin = new CountDownTimer(600000, 5000) { //change me back 30,000/750 to make time reasonable
-            public void onTick(long millisUntilFinished) {
-                if (timerValue > 0) {
-                    createCoin();
-                    //moveCoin();
-                }
-            }
 
-            public void onFinish() {
-            }
-        }.start();
         //If this got started from activity_camera.java grab the photo that was passed with it
         if (getIntent().hasExtra("image")) {
 
@@ -86,13 +75,12 @@ public class GameScreen extends Activity {
         createCountDown(timerValue);
         createBadTimer(timerValue);
         timerText = (TextView) findViewById(R.id.timerText);
-        ImageButton stupidButton = (ImageButton) findViewById(R.id.coinButton);
+
         //TIMER FOR MOVING THE BUTTON AUTOMATICALLY
         CountDownTimer z = new CountDownTimer(60000, 650) { //change me back 30,000/750 to make time reasonable
             public void onTick(long millisUntilFinished) {
                 if (timerValue > 0) {
                     moveButton();
-                    //moveCoin();
                 }
             }
 
@@ -147,29 +135,7 @@ public class GameScreen extends Activity {
             }
         }.start();
     }
-    //Creates the coin
-    public void createCoin() {
-        if (isRunning) { coinTimer.cancel();}
-        ImageButton coinButton = (ImageButton) findViewById(R.id.coinButton);
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        int height = displayMetrics.heightPixels;
-        Random r3 = new Random();
-        int Button3H = r3.nextInt(width - 400);
-        int Button3W = r3.nextInt(height - 400);
-        coinButton.setX(Button3H);
-        coinButton.setY(Button3W);
-        coinButton.setVisibility(View.VISIBLE);
-        coinButton.setClickable(true);
-        coinTimer = new CountDownTimer(4000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                isRunning = true;
-            }
-            public void onFinish() {
-                destroyCoin();
-            }
-        }.start();
-    }
+
 
     //Called at the end of the game, grabs the highscore and compares it to the current highscore, if bigger it updates, if less just goes to quit
     public void updateHS(int x) {
@@ -188,7 +154,7 @@ public class GameScreen extends Activity {
 
     //Increments user score.
     public void btnClick(View v) {
-        Drawable z = getResources().getDrawable(R.mipmap.splat, null);
+        Drawable z = getResources().getDrawable(R.mipmap.splat);
         ImageButton charButton = (ImageButton) findViewById(R.id.goodIcon);
         charButton.setImageDrawable(z);
         scoreText = (TextView) findViewById(R.id.player1score);
@@ -201,12 +167,6 @@ public class GameScreen extends Activity {
         ImageButton altbutton = (ImageButton) findViewById(R.id.badIcon);
         altbutton.setVisibility(View.GONE);
         altbutton.setClickable(false);
-    }
-
-    public void destroyCoin(){
-        ImageButton coinButton = (ImageButton) findViewById(R.id.badIcon);
-        coinButton.setVisibility(View.GONE);
-        coinButton.setClickable(false);
     }
 
     //Lowers score, time, flashes red
@@ -223,16 +183,7 @@ public class GameScreen extends Activity {
         scoreText.setText(String.valueOf(userScore));
         timerValue = timerValue-2000;
     }
-    public void coinClick(View v){
-        ImageButton coin = (ImageButton) findViewById(R.id.coinButton);
-        SharedPreferences mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
-        int coinAmt = mypreferences.getInt("coinCount", 0);
-        coinAmt++;
-        SharedPreferences.Editor editor = mypreferences.edit();
-        editor.putInt("coinCount", coinAmt);
-        editor.commit();
-        coin.setVisibility(View.GONE);
-    }
+
     //Moves the actual button
     public void moveButton() {
         if (!ispaused){
@@ -247,7 +198,6 @@ public class GameScreen extends Activity {
             charButton.setX(buttonX);
             charButton.setY(buttonY);
         }
-
     }
 
     //Called if user presses menu button or back button
@@ -323,7 +273,6 @@ public class GameScreen extends Activity {
         timerValue = 0;
         updateHS(userScore);
         mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
-        int ayylmao = mypreferences.getInt("coinCount", 0);
         int hs = mypreferences.getInt("highscore",userScore);
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -334,8 +283,6 @@ public class GameScreen extends Activity {
         gameover.setTypeface(typeFace);
         TextView scoreText = (TextView) dialog.findViewById(R.id.scoreText);
         TextView hsText = (TextView) dialog.findViewById(R.id.highscoreText);
-        TextView coinText = (TextView) dialog.findViewById(R.id.coinsText);
-        coinText.setText(""+ayylmao);
         scoreText.setText(""+userScore);
         hsText.setText("" + hs);
 

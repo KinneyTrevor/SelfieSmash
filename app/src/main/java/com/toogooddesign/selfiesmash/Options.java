@@ -29,31 +29,31 @@ public class Options extends Activity {
             ImageButton vibrateButton = (ImageButton) findViewById(R.id.vibrateButton);
             vibrateButton.setClickable(true);
             if (vibrateactive){
-                Drawable z = getResources().getDrawable(R.drawable.vibrate,null);
+                Drawable z = getResources().getDrawable(R.drawable.vibrate);
                 vibrateButton.setImageDrawable(z);
             }
             else {
-                Drawable z = getResources().getDrawable(R.drawable.vibratedisabled,null);
+                Drawable z = getResources().getDrawable(R.drawable.vibratedisabled);
                 vibrateButton.setImageDrawable(z);
             }
         }
         if (soundEnabled){
-            Drawable z = getResources().getDrawable(R.drawable.speakericon,null);
+            Drawable z = getResources().getDrawable(R.drawable.speakericon);
             ImageButton speakerButton = (ImageButton) findViewById(R.id.speaker);
             speakerButton.setImageDrawable(z);
         }
         else{
-            Drawable z = getResources().getDrawable(R.drawable.mutedicon,null);
+            Drawable z = getResources().getDrawable(R.drawable.mutedicon);
             ImageButton speakerButton = (ImageButton) findViewById(R.id.speaker);
             speakerButton.setImageDrawable(z);
         }
         if (musicEnabled){
-            Drawable z = getResources().getDrawable(R.drawable.musicicon,null);
+            Drawable z = getResources().getDrawable(R.drawable.musicicon);
             ImageButton musicButton = (ImageButton) findViewById(R.id.musicButton);
             musicButton.setImageDrawable(z);
         }
         else{
-            Drawable z = getResources().getDrawable(R.drawable.musicmuted,null);
+            Drawable z = getResources().getDrawable(R.drawable.musicmuted);
             ImageButton musicButton = (ImageButton) findViewById(R.id.musicButton);
             musicButton.setImageDrawable(z);
         }
@@ -64,7 +64,7 @@ public class Options extends Activity {
         SharedPreferences mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
         soundEnabled = mypreferences.getBoolean("sound", true);
         if (soundEnabled){
-            Drawable z = getResources().getDrawable(R.drawable.mutedicon,null);
+            Drawable z = getResources().getDrawable(R.drawable.mutedicon);
             ImageButton speakerButton = (ImageButton) findViewById(R.id.speaker);
             speakerButton.setImageDrawable(z);
             Toast.makeText(getApplicationContext(), "Sound Disabled!", Toast.LENGTH_LONG).show();
@@ -73,7 +73,7 @@ public class Options extends Activity {
             editor.apply();
         }
         if(!soundEnabled){
-            Drawable z = getResources().getDrawable(R.drawable.speakericon,null);
+            Drawable z = getResources().getDrawable(R.drawable.speakericon);
             ImageButton speakerButton = (ImageButton) findViewById(R.id.speaker);
             speakerButton.setImageDrawable(z);
             Toast.makeText(getApplicationContext(), "Sound Enabled!", Toast.LENGTH_LONG).show();
@@ -86,7 +86,7 @@ public class Options extends Activity {
         SharedPreferences mypreferences = getSharedPreferences("App_preferences_file", Context.MODE_PRIVATE);
         vibrateactive = mypreferences.getBoolean("vibrateenabled",true);
         if (vibrateactive){
-            Drawable z = getResources().getDrawable(R.drawable.vibratedisabled,null);
+            Drawable z = getResources().getDrawable(R.drawable.vibratedisabled);
             ImageButton vibrateButton = (ImageButton) findViewById(R.id.vibrateButton);
             vibrateButton.setImageDrawable(z);
             Toast.makeText(getApplicationContext(), "Vibrate Disabled!", Toast.LENGTH_LONG).show();
@@ -95,7 +95,7 @@ public class Options extends Activity {
             editor.apply();
         }
         if(!vibrateactive){
-            Drawable z = getResources().getDrawable(R.drawable.vibrate,null);
+            Drawable z = getResources().getDrawable(R.drawable.vibrate);
             ImageButton vibrateButton = (ImageButton) findViewById(R.id.vibrateButton);
             vibrateButton.setImageDrawable(z);
             Toast.makeText(getApplicationContext(), "Vibrate Enabled!", Toast.LENGTH_LONG).show();
