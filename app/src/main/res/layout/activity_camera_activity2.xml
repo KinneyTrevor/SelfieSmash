@@ -19,7 +19,8 @@
     <ImageButton
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/thepicture"
+        android:id="@+id/theimage"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusableInTouchMode="true" />
 </RelativeLayout>

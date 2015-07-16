@@ -14,7 +14,6 @@ public class MainMenu extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         TextView myTextView=(TextView)findViewById(R.id.titleView);

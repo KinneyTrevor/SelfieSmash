@@ -18,7 +18,7 @@ public class CameraActivity2 extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_camera_activity2);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         intent.putExtra("android.intent.extras.CAMERA_FACING", 1);
@@ -33,8 +33,13 @@ public class CameraActivity2 extends Activity {
         if (requestCode == request_image_capture && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
             photo = (Bitmap) extras.get("data");
-            theImage = (ImageView) findViewById(R.id.thepicture);
+            theImage = (ImageView) findViewById(R.id.theimage);
             theImage.setImageBitmap(photo);
+            Intent i = new Intent(this, GameScreen.class);
+            ByteArrayOutputStream bs = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 50, bs);
+            i.putExtra("byteArray", bs.toByteArray());
+            startActivity(i);
         }
     }
 

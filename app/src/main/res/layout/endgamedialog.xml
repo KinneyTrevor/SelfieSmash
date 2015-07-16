@@ -108,7 +108,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_share"
-            android:src="@drawable/share"
             android:background="@null"
             android:layout_gravity="center_horizontal|right" />
 
