@@ -38,7 +38,9 @@ public class MainMenu extends Activity {
         //Intent hs = new Intent(view.getContext(),HighScores.class);
         //  startActivity(hs);
     }
-
+    public void donothing(){
+        
+    }
 
 
 }
