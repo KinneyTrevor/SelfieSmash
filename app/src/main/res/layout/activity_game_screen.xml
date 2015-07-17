@@ -11,7 +11,7 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:paddingRight="5dp"
-    android:background="#00F000">
+    android:background="#FFFFFF">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -19,39 +19,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:background="#000000"
+        android:background="@null"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gameButton"
-        android:background="@drawable/circlebutton2"
-        android:src="@drawable/circlebutton2"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:padding="5dp"
-        android:onClick="btnClick"
-        android:layout_marginTop="70dp"
-        android:layout_below="@+id/player1score"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="58dp"
-        android:layout_marginStart="58dp"
-        android:visibility="invisible" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:id="@+id/timerText"
-        android:textSize="30dp"
-        android:textColor="#FFFFFFFF"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,34 +30,9 @@
         android:text="0"
         android:id="@+id/player1score"
         android:textSize="60dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Time:"
-        android:id="@+id/textView2"
-        android:textSize="30sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="II"
-        android:id="@+id/pauseButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/timerText"
-        android:textSize="30sp"
-        android:nestedScrollingEnabled="true"
-        android:onClick="pauseClick" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -96,9 +42,23 @@
         android:onClick="badClick"
         android:padding="10dp"
         android:background="@null"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerVertical="true" />
+
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/player1score"
+        android:layout_above="@+id/adView"
+        android:id="@+id/gameLayout"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@null">
+
+    </RelativeLayout>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -106,22 +66,19 @@
         android:id="@+id/goodIcon"
         android:src="@mipmap/playericon"
         android:background="@null"
-        android:padding="10dp"
+        android:padding="0dp"
         android:onClick="btnClick"
-        android:layout_above="@+id/adView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/adView" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/gameLayout"
-        android:background="@null"
-        android:layout_below="@+id/player1score"
-        android:layout_alignLeft="@+id/gameButton"
-        android:layout_alignStart="@+id/gameButton"
-        android:layout_alignRight="@+id/coinButton"
-        android:layout_alignEnd="@+id/coinButton"
-        android:layout_alignBottom="@+id/coinButton" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splatImage"
+        android:layout_below="@+id/badIcon"
+        android:layout_alignLeft="@+id/goodIcon"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>

@@ -27,7 +27,7 @@ public class MainMenu extends Activity {
     }
 
     public void playButton(View view){
-        Intent play = new Intent(view.getContext(),CameraActivity2.class);
+        Intent play = new Intent(view.getContext(),CameraActivity.class);
         startActivity(play);
     }
     public void storeClick(View view){

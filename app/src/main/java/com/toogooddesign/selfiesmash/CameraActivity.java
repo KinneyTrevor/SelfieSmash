@@ -1,12 +1,15 @@
 package com.toogooddesign.selfiesmash;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -14,117 +17,199 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class CameraActivity extends Activity implements SurfaceHolder.Callback {
+    TextView testView;
+
     Camera camera;
     SurfaceView surfaceView;
     SurfaceHolder surfaceHolder;
-    Camera.PictureCallback rawCallback;
+    PictureCallback rawCallback;
     Camera.ShutterCallback shutterCallback;
-    Camera.PictureCallback jpegCallback;
-//ayyyylmao
+    PictureCallback jpegCallback;
+    Button start, stop, capture;
+
+    /** Called when the activity is first created. */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         camera = Camera.open();
-        surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-        surfaceHolder = surfaceView.getHolder();
-
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        jpegCallback = new PictureCallback() {
+        Camera.Parameters param;
+        param = camera.getParameters();
+        //modify parameter
+        param.setPreviewFrameRate(20);
+        param.setPreviewSize(176, 144);
+        camera.setParameters(param);
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+            //camera.takePicture(shutter, raw, jpeg)
+        } catch (Exception e) {
+            //   Log.e(tag, "init_camera: " + e);
+            return;
+        }
+        start = (Button)findViewById(R.id.btn_start);
+        start.setOnClickListener(new Button.OnClickListener()
+        {
+            public void onClick(View arg0) {
+                start_camera();
+            }
+        });
+        stop = (Button)findViewById(R.id.btn_stop);
+        capture = (Button) findViewById(R.id.btn_capture);
+        stop.setOnClickListener(new Button.OnClickListener()
+        {
+            public void onClick(View arg0) {
+                stop_camera();
+            }
+        });
+        capture.setOnClickListener(new View.OnClickListener() {
 
             @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                captureImage();
+            }
+        });
+
+        surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        rawCallback = new PictureCallback() {
+            public void onPictureTaken(byte[] data, Camera camera) {
+              //  Log.d("Log", "onPictureTaken - raw");
+            }
+        };
+
+        /** Handles data for jpeg picture */
+        shutterCallback = new Camera.ShutterCallback() {
+            public void onShutter() {
+               // Log.i("Log", "onShutter'd");
+            }
+        };
+        jpegCallback = new PictureCallback() {
             public void onPictureTaken(byte[] data, Camera camera) {
                 FileOutputStream outStream = null;
                 try {
-                    outStream = new FileOutputStream(String.format("/sdcard/%d.jpg", System.currentTimeMillis()));
-
+                    outStream = new FileOutputStream(String.format(
+                            "/sdcard/%d.jpg", System.currentTimeMillis()));
                     outStream.write(data);
                     outStream.close();
-                }
-
-                catch (FileNotFoundException e) {
+                   // Log.d("Log", "onPictureTaken - wrote bytes: " + data.length);
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                }
-
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
+                } finally {
                 }
-
-                finally {
-                }
-                Toast.makeText(getApplicationContext(), "Picture Saved", Toast.LENGTH_LONG).show();
-                refreshCamera();
+              //  Log.d("Log", "onPictureTaken - jpeg");
             }
         };
     }
 
-    public void captureImage(View v) throws IOException {
-        camera.takePicture(null, null, jpegCallback);
+    private void captureImage() {
+        // TODO Auto-generated method stub
+        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
     }
 
-    public void refreshCamera() {
-        if (surfaceHolder.getSurface() == null) {
-            return;
-        }
-
-        try {
-            camera.stopPreview();
-        }
-
-        catch (Exception e) {
-        }
-
-        try {
-            camera.setPreviewDisplay(surfaceHolder);
-            camera.startPreview();
-        }
-        catch (Exception e) {
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        try {
-            camera = Camera.open();
-        }
-
-        catch (RuntimeException e) {
-            System.err.println(e);
-            return;
-        }
-
+    private void start_camera()
+    {
+        camera = Camera.open();
         Camera.Parameters param;
         param = camera.getParameters();
-        param.setPreviewSize(352, 288);
+        //modify parameter
+        param.setPreviewFrameRate(20);
+        param.setPreviewSize(176, 144);
         camera.setParameters(param);
-
         try {
             camera.setPreviewDisplay(surfaceHolder);
             camera.startPreview();
-        }
-
-        catch (Exception e) {
-            System.err.println(e);
+            //camera.takePicture(shutter, raw, jpeg)
+        } catch (Exception e) {
+         //   Log.e(tag, "init_camera: " + e);
             return;
         }
     }
 
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        refreshCamera();
-    }
+    protected void onSurfaceChanged(){
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
+        if (surfaceHolder.getSurface() == null) {
+            // preview surface does not exist
+            return;
+        }
+
+        // stop preview before making changes
+        try {
+            camera.stopPreview();
+        } catch (Exception e) {
+            // ignore: tried to stop a non-existent preview
+        }
+
+        // make any resize, rotate or reformatting changes here
+        if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+
+            camera.setDisplayOrientation(90);
+
+        } else {
+
+            camera.setDisplayOrientation(0);
+
+        }
+        // start preview with new settings
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+
+        } catch (Exception e) {
+           // Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+        }
+    }
+    private void stop_camera()
+    {
         camera.stopPreview();
         camera.release();
-        camera = null;
     }
+
+    public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
+
+        if (surfaceHolder.getSurface() == null) {
+            // preview surface does not exist
+            return;
+        }
+
+        // stop preview before making changes
+        try {
+            camera.stopPreview();
+        } catch (Exception e) {
+            // ignore: tried to stop a non-existent preview
+        }
+
+        // make any resize, rotate or reformatting changes here
+        if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
+
+            camera.setDisplayOrientation(90);
+
+        } else {
+
+            camera.setDisplayOrientation(0);
+
+        }
+        // start preview with new settings
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
+
+        } catch (Exception e) {
+            // Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+        }
+    }
+
+    public void surfaceCreated(SurfaceHolder holder) {
+        // TODO Auto-generated method stub
+    }
+
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // TODO Auto-generated method stub
+    }
+
 }

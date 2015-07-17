@@ -3,26 +3,17 @@
     android:layout_height="match_parent" android:background="#0099cc"
     tools:context="com.toogooddesign.selfiesmash.CameraActivity2">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:layout_gravity="center" />
-
-    <ImageButton
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:id="@+id/theimage"
+        android:focusableInTouchMode="false"
+        android:minHeight="75dp"
+        android:minWidth="75dp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:focusableInTouchMode="true" />
+        android:padding="1dp"
+        android:background="@null"/>
 
     <Button
         android:layout_width="match_parent"
@@ -32,4 +23,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="readyUp" />
+
 </RelativeLayout>
